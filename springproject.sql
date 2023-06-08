@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `categories` (
-  `categoryid` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -36,7 +36,7 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`categoryid`, `name`) VALUES
+INSERT INTO `categories` (`category_id`, `name`) VALUES
 (6, 'category6'),
 (8, 'category7'),
 (11, 'fruit');
@@ -48,7 +48,7 @@ INSERT INTO `categories` (`categoryid`, `name`) VALUES
 --
 
 CREATE TABLE `login` (
-  `id` int(11) NOT NULL,
+  `login_id` int(11) NOT NULL,
   `password` varchar(20) NOT NULL,
   `username` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -57,7 +57,7 @@ CREATE TABLE `login` (
 -- Dumping data for table `login`
 --
 
-INSERT INTO `login` (`id`, `password`, `username`) VALUES
+INSERT INTO `login` (`login_id`, `password`, `username`) VALUES
 (1, '123', '1');
 
 -- --------------------------------------------------------
@@ -67,10 +67,10 @@ INSERT INTO `login` (`id`, `password`, `username`) VALUES
 --
 
 CREATE TABLE `products` (
-  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `image` text NOT NULL,
-  `categoryid` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `weight` int(11) NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `image`, `categoryid`, `quantity`, `price`, `weight`, `description`) VALUES
+INSERT INTO `products` (`product_id`, `name`, `image`, `category_id`, `quantity`, `price`, `weight`, `description`) VALUES
 (14, 'dfgdg', '1.jpg', 6, 7275275, 24, 27, ''),
 (15, 'dfgdg', '2.jpg', 6, 7275275, 24, 27, ''),
 (16, 'apple', '', 11, 5, 30, 10, 'red python');
@@ -117,14 +117,14 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `role`, `enabled`, `emai
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
-  ADD PRIMARY KEY (`categoryid`);
+  ADD PRIMARY KEY (`category_id`);
 
 --
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `products_ibfk_1` (`categoryid`);
+  ADD PRIMARY KEY (`product_id`),
+  ADD KEY `products_ibfk_1` (`category_id`);
 
 --
 -- Indexes for table `users`
@@ -140,13 +140,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoryid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -162,13 +162,8 @@ ALTER TABLE `users`
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`categoryid`) REFERENCES `categories` (`categoryid`) ON DELETE CASCADE;
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE CASCADE;
 COMMIT;
-
-ALTER TABLE `users` 
-CHANGE COLUMN `role` `role` VARCHAR(250) NULL;
-
-ALTER TABLE `users` CHANGE COLUMN `role` `role` VARCHAR(250) NOT NULL DEFAULT 'ROLE_USERS';
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
